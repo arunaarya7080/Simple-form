@@ -33,34 +33,55 @@ echo "<script>alert('Thank you for contact us, our team will contact with you ve
 
 
 
-<!-- Test Code-->
 <?php
-$from_text = "From Email";
-$from_email = "arundeltait@gmail.com";
-$to = "arundeltait@gmail.com";
-$subject = "Online Lead Form";
-// $message_body = "arun";
+
+if(isset($_POST['submit'])) {
+//Input value 
+$name = $_POST['name'];
+$email = $_POST['email'];
+$mobileno = $_POST['mobileno'];
+
+// Message Body
 $message_body = "<html><body>";
 $message_body .= "
 <table>
   <tr>
-    <th>Name</th>
-    <td>Arun</td>
+    <th>Name : </th>
+    <td>$name</td>
   </tr>
    <tr>
-    <th>Address</th>
-    <td>Gurgaon</td>
+    <th>Email : </th>
+    <td>$email</td>
+  </tr>
+  <tr>
+    <th>Mobile No. : </th>
+    <td>$mobileno</td>
   </tr>
 </table>
 ";
 $message_body .= "</body></html>";
+    
+//mailer info 
+$from_text = "From Email";
+$from_email = "arundeltait@gmail.com";
+$to = "arundeltait@gmail.com";
+$subject = "Online Lead Form";
+
 // Email Header Part 
 $headers  = "From: " . $from_text . "<" . $from_email . ">\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $headers .= "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-mail($to,$subject,$message_body,$headers);
-echo $message_body;
+$sendmail = mail($to,$subject,$message_body,$headers);
+ 
+ if($sendmail){
+		echo "Mail send";
+	}else{
+		echo "Error occur";
+	}
+ 
+}
+
 
 ?>

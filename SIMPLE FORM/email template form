@@ -1,0 +1,76 @@
+<?php
+if (isset($_POST['submit'])) {
+    
+     $style = " <style>
+        /* Add styles for the email template */
+       body {
+          font-family: Arial, sans-serif;
+        }
+        .container {
+          width: 600px;
+          margin: 0 auto;
+           background-color: #f2f2f2;
+          padding: 30px;
+          margin: 50px;
+        }
+        h1 {
+          font-size: 24px;
+          color: #333;
+          margin-bottom: 20px;
+        }
+        p {
+          font-size: 14px;
+          color: #333;
+          line-height: 1.5;
+          margin-bottom: 20px;
+        }
+        
+      </style> "; 
+      
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $url = $_POST['url'];
+    $subject_input = $_POST['subject'];
+    $message = $_POST["message"];
+    
+    $to = "arun@deltaweb.in";
+    $email_subject = "Welcome to our Email Template";
+    // To send HTML mail, the Content-type header must be set
+    $headers  = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    // Additional headers
+    $headers .= "From: arun@deltaweb.in" . "\r\n";
+    
+    $email_template = "
+    <html>
+    <head>
+    $style
+    </head>
+    <body>
+      <div class='container'>
+        <h1>$subject_input</h1>
+        <p>$name</p>
+        <p>$email</p>
+        <p>$phone</p>
+        <p>$url</p>
+        <p>$message</p>
+      </div>
+    </body>
+    </html>
+    ";
+
+
+    if (mail($to, $email_subject, $email_template, $headers)) {
+        echo "Your form was submitted successfully!";
+      } else {
+        echo "An error occurred while submitting the form. Please try again later.";
+      }
+  
+}
+
+?>
+
+
+
+
